@@ -43,19 +43,19 @@ Modern home search platforms focus on price and location, ignoring lifestyle fit
 - User preferences (e.g. safety: high, budget: low)
 
 ### Features Considered:
-- Safety Score, Rent, Parks Score, Commute Score, etc.
+- Safety Score, Rent, Parks Score, walk score.
 
 ### Method:
 - Feature normalization
 - Weighted scoring (user-defined)
-- Similarity ranking using cosine similarity or score aggregation
+
 
 ## Tech Stack
 
 | Layer        | Technology             |
 |--------------|------------------------|          
-| Frontend     | React.js / HTML + CSS  |
-| Backend      | FastAPI / Flask        |
-| Data         | Pandas + SQLite        |
+| Frontend     | HTML + CSS + js        |
+| Backend      | FastAPI                |
+| Data         | Pandas                 |
 | Deployment   | Render / Vercel        |
 | Version Ctrl | Git + GitHub           |
