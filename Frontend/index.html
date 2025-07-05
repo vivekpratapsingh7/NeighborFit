@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NeighborFit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🏘️ NeighborFit</h1>
+
+        <div class="form">
+           
+            <label>
+                Minimum Safety Score:
+                <input type="number" id="min_safety" value="6" min="1" max="10">
+            </label>
+            <label>
+                Maximum Rent:
+                <input type="number" id="max_rent" value="20000" min="0">
+            </label>
+            <label>
+                Minimum Parks Score:
+                <input type="number" id="min_parks" value="5" min="1" max="10">
+            </label>
+
+            <label>
+                Minimum Walk Score:
+                <input type="number" id="min_walk" value="60" min="0" max="100">      
+            </label>
+
+         
+            <label>
+                Importance of Safety (1–5):
+                <input type="number" id="safety_weight" value="1" min="1" max="5">
+            </label>
+            <label>
+                Importance of Rent (1–5):
+                <input type="number" id="rent_weight" value="1" min="1" max="5">
+            </label>
+            <label>
+                Importance of Parks (1–5):
+                <input type="number" id="parks_weight" value="1" min="1" max="5">
+            </label>
+            <label>
+                Importance of Walkability (1–5):
+                <input type="number" id="walk_weight" value="1" min="1" max="5">
+            </label>
+
+            <button onclick="getMatches()">Find Matches</button>
+        </div>
+
+        <div id="results" class="results">
+           
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+  

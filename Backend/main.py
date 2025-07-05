@@ -12,22 +12,35 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-df = pd.read_csv("data\data.csv")
-
-@app.get("/")
-def home():
-    return {"message": "NeighborFit API is running"}
+df = pd.read_csv("data/Data.csv")
 
 @app.get("/match")
 def match_neighborhood(
-    min_safety: int = Query(6),
-    max_rent: int = Query(20000),
-    min_parks: int = Query(5)
+    safety_weight: float = Query(1.0),
+    rent_weight: float = Query(1.0),
+    parks_weight: float = Query(1.0),
+    walk_weight: float = Query(1.0),
 ):
-    filtered = df[
-        (df["safety_score"] >= min_safety) &
-        (df["rent"] <= max_rent) &
-        (df["parks_score"] >= min_parks)
-    ]
-    return filtered.to_dict(orient="records")
+    df_copy = df.copy()
+
+    
+    df_copy["norm_safety"] = df_copy["safety_score"] / 10
+    df_copy["norm_rent"] = 1 - (df_copy["rent"] - df_copy["rent"].min()) / (df_copy["rent"].max() - df_copy["rent"].min())
+    df_copy["norm_parks"] = df_copy["parks_score"] / 10
+    df_copy["norm_walk"] = df_copy["walk_score"] / 100
+
+    # Compute weighted score
+    df_copy["match_score"] = (
+        safety_weight * df_copy["norm_safety"] +
+        parks_weight * df_copy["norm_parks"] +
+        walk_weight * df_copy["norm_walk"] +
+        rent_weight * df_copy["norm_rent"]
+    )
+
+    # Sort by score
+    sorted_df = df_copy.sort_values(by="match_score", ascending=False)
+
+    
+    return sorted_df.head(5)[[
+        "neighborhood", "safety_score", "rent", "parks_score", "walk_score", "match_score"
+    ]].to_dict(orient="records")
