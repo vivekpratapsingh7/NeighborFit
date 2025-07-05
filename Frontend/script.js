@@ -12,7 +12,9 @@ async function getMatches() {
     const query = `?safety_weight=${safety_weight}&rent_weight=${rent_weight}&parks_weight=${parks_weight}&walk_weight=${walk_weight}`;
 
     try {
-        const res = await fetch(`http://localhost:8000/match${query}`);
+        const BASE_URL = "https://neighborfit-tk61.onrender.com/";
+
+        fetch(`${BASE_URL}/match?...`)
         const data = await res.json();
 
         const resultsDiv = document.getElementById("results");
